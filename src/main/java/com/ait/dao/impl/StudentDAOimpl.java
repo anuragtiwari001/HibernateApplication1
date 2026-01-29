@@ -35,7 +35,7 @@ public class StudentDAOimpl implements StudentDAO {
 		}
 		catch(Exception ex){
 			t.rollback();
-			System.out.println("Issue is persisting Student object....");
+			System.out.println("Issue in persisting Student object....");
 			System.out.println(ex);
 //			ex.printStackTrace();
 		}
@@ -62,8 +62,49 @@ public class StudentDAOimpl implements StudentDAO {
 		session.close();
 		return stu;
 	}
-}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public Student updateStudent(int sid, int marks) {
+		Session session = factory.openSession();
+		Student s = session.get(Student.class, sid);
+		Transaction t = session.beginTransaction();
+		try {
+			s.setMarks(marks);
+//			session.update(s); Deprecated Method from version 6
+			session.merge(s);
+			t.commit();
+			System.out.println("Object is updated....");
+		}
+		catch(Exception Ex){
+			t.rollback();
+			System.out.println("Object is not Updated....");
+		}
+		finally {
+			session.close();
+		}
+		return s;
+	}
+
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public void deleteStudent(int sid) {
+		Session session = factory.openSession();
+		Student s = session.get(Student.class, sid);
+		Transaction t = session.beginTransaction();
+		try {
+//			session.delete(t);// Deprecated method from version 6
+			session.remove(s);
+			System.out.println("Object Deleted Successfully");
+			t.commit();
+		}
+		catch(Exception Ex) {
+			t.rollback();
+			System.out.println("Object is not Deleted....");
+		}
+	}
+}
 
 
 /*
@@ -72,5 +113,12 @@ public class StudentDAOimpl implements StudentDAO {
  *  If you want to call load() and get() methods you have to pass 2 arguments
  *  args: 1- classname.class
  *  	  2- id value
+ *  
+ *  
+ *  git status
+	git add .
+	git commit -m "Added update operation using Hibernate"
+	git push
+
 */
 

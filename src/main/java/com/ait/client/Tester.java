@@ -31,9 +31,15 @@ public class Tester {
 //		student4.setMarks(500);
 //		dao.saveStudent(student4);
 		
-		Student stud = dao.loadStudent(11012);
-		System.out.println(stud);
+//		Student stud = dao.loadStudent(11012);
+//		System.out.println(stud);
+		
+//		Student s  = dao.updateStudent(11011, 800);
+//		System.out.println(s);
 
+		dao.deleteStudent(99099);
+		
+		
 	}
 }
 

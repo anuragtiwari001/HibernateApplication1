@@ -4,6 +4,7 @@ import com.ait.entity.Student;
 
 public interface StudentDAO {
 	abstract void saveStudent(Student student);
-	Student loadStudent(int sid);
-	
+	abstract Student loadStudent(int sid);
+	abstract Student updateStudent (int sid , int marks);
+	abstract void deleteStudent(int sid);
 }
